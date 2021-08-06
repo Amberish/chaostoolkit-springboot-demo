@@ -15,7 +15,9 @@ jobs:
         with:
           python-version: '3.x'
       - name: Setup python virtual env
-        run: pip install -U chaostoolkit
+        run: |
+          pip install -U chaostoolkit
+          pip install -U chaostoolkit-spring
 
       - name: Run application experiments
         run: chaos run ./experiments/application-experiment.json
