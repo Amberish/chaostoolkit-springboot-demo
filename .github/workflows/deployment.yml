@@ -30,6 +30,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: production
+    defaults:
+      run:
+        working-directory: ./infra/aws
 
     steps:
       - name: Checkout
@@ -41,10 +44,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.CDK_DEFAULT_REGION }}
-
-      - name: Change directory to infra
-        run: cd infra/aws
-
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
