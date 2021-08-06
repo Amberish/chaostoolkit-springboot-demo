@@ -28,8 +28,8 @@ jobs:
 
       - name: Create log and journal buckets
         run: |
-          aws s3api create-bucket --bucket chaostoolkit-log-bucket
-          aws s3api create-bucket --bucket chaostoolkit-journal-bucket
+          aws s3 mb s3://chaostoolkit-log-bucket
+          aws s3 mb s3://chaostoolkit-journal-bucket
 
       - name: Move logs and journal to s3
         run: |
