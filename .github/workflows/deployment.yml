@@ -30,9 +30,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: production
-    defaults:
-      run:
-        working-directory: ./infra/aws
 
     steps:
       - name: Checkout
@@ -48,8 +45,9 @@ jobs:
         with:
           node-version: "14"
           cache: "npm"
+          cache-dependency-path: infra/aws/package-lock.json
       - name: Deploy Cloudfront on AWS
         run: |
-          npm ci
+          cd infra/aws && npm ci
           npm run cdk -- bootstrap
           npm run cdk -- deploy --require-approval never
