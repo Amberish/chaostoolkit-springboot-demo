@@ -12,13 +12,13 @@ const DOCKER_BASE_DIR = "../../../";
 // const ACCOUNT_ID = "303176307655";
 // const DOCKER_IMAGE_NAME = "chaostoolkit-spring";
 
-export class AwsStack extends cdk.Stack {
+export class ChaosSpringbootStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const image = new DockerImageAsset(this, "ChaostoolkitSpringDockerImage", {
-      directory: path.join(__dirname, DOCKER_BASE_DIR),
-    });
+    // const image = new DockerImageAsset(this, "ChaostoolkitSpringDockerImage", {
+    //   directory: path.join(__dirname, DOCKER_BASE_DIR),
+    // });
 
     // new ecrdeploy.ECRDeployment(
     //   this,
@@ -31,9 +31,11 @@ export class AwsStack extends cdk.Stack {
     //   }
     // );
 
-    const vpc = ec2.Vpc.fromLookup(this, "ChaostoolkitSpringbootVPC", {
-      isDefault: true,
-    });
+    // const vpc = ec2.Vpc.fromLookup(this, "ChaostoolkitSpringbootVPC", {
+    //   isDefault: true,
+    // });
+
+    const vpc = new ec2.Vpc(this, "ChaostoolkitSpringbootVPC");
 
     const cluster = new ecs.Cluster(this, "ChaostoolkitSpringbootCluster", {
       vpc,
@@ -49,7 +51,8 @@ export class AwsStack extends cdk.Stack {
           cpu: 512,
           taskImageOptions: {
             // image: ecs.ContainerImage.fromRegistry("amazon/amazon-ecs-sample"),
-            image: ecs.ContainerImage.fromEcrRepository(image.repository),
+            // image: ecs.ContainerImage.fromEcrRepository(image.repository),
+            image: ecs.ContainerImage.fromAsset(path.join(__dirname, DOCKER_BASE_DIR)),
             containerPort: 8080,
           },
           publicLoadBalancer: true,
