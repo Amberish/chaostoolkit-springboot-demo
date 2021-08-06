@@ -47,6 +47,6 @@ jobs:
           cache: "npm"
       - name: Deploy Cloudfront on AWS
         run: |
-          cd infra/aws && npm ci
+          cd infra/aws && npm install
           npm run cdk -- bootstrap
           npm run cdk -- deploy --require-approval never
