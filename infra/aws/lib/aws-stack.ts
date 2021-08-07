@@ -3,7 +3,6 @@ import * as cdk from "@aws-cdk/core";
 import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
 import * as ecs from "@aws-cdk/aws-ecs";
 import * as ec2 from "@aws-cdk/aws-ec2";
-// import * as ecrdeploy from "cdk-ecr-deployment";
 import { DockerImageAsset } from "@aws-cdk/aws-ecr-assets";
 import * as path from "path";
 import { SecurityGroup } from "@aws-cdk/aws-ec2";
