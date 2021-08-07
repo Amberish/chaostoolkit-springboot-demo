@@ -2,7 +2,7 @@ name: Run Chaos Experiments
 on:
   push:
     tags:
-      - 'chaos-\d'
+      - 'chaos-app-\d+'
 
 env:
   AWS_DEFULT_REGION: ${{ secrets.CDK_DEFAULT_REGION }}
@@ -17,13 +17,11 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+
       - name: Setup python virtual env
         run: |
           pip install -U chaostoolkit
           pip install -U chaostoolkit-spring
-
-      - name: Run application experiments
-        run: chaos run ./experiments/application-experiment-exception.json
 
       - name: Get current date
         id: date
@@ -34,7 +32,34 @@ jobs:
           aws s3 mb s3://chaostoolkit-log-bucket
           aws s3 mb s3://chaostoolkit-journal-bucket
 
-      - name: Move logs and journal to s3
+      - name: Run application experiment - app kill
+        run: chaos run ./experiments/application/application-experiment-app-kill.json
+
+      - name: Move logs and journal to s3 - app kill
         run: |
-          aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-chaostoolkit.log
-          aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-journal.json
+          aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-app-kill-log.log
+          aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-app-kill-journal.json
+
+      - name: Run application experiment - exception
+        run: chaos run ./experiments/application/application-experiment-exception.json
+
+      - name: Move logs and journal to s3 - exception
+        run: |
+          aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-exception-log.log
+          aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-exception-journal.json
+
+      - name: Run application experiment - latency
+        run: chaos run ./experiments/application/application-experiment-latency.json
+
+      - name: Move logs and journal to s3 - latency
+        run: |
+          aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-latency-log.log
+          aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-latency-journal.json
+
+      - name: Run application experiment - memory
+        run: chaos run ./experiments/application/application-experiment-memory.json
+
+      - name: Move logs and journal to s3 - memory
+        run: |
+          aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-memory-log.log
+          aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-memory-journal.json
