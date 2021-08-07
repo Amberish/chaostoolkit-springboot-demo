@@ -34,7 +34,8 @@
         "module": "chaosaws.ecs.actions",
         "func": "stop_random_tasks",
         "arguments": {
-          "cluster": "ChaosSpringbootStack-ChaostoolkitSpringbootCluster47A3949F-LFJQbQpbh90k"
+          "cluster": "ChaosSpringbootStack-ChaostoolkitSpringbootCluster47A3949F-LFJQbQpbh90k",
+          "task_count": 1
         }
       }
     }
