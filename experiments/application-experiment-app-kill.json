@@ -39,18 +39,12 @@
           "assaults_configuration": {
             "level": 2,
             "latencyActive": false,
-            "exceptionsActive": true,
-            "exception": {
-              "type": "java.net.ConnectException",
-              "arguments": [
-                {
-                  "className": "java.lang.String",
-                  "value": "Connection timed out"
-                }
-              ]
-            },
+            "exceptionsActive": false,
             "memoryActive":false,
-            "killApplicationActive":false,
+            "killApplicationActive":true,
+            "runtimeAssaultCronExpression": "0/30 0/1 * 1/1 * ?",
+            "latencyRangeStart":10000,
+            "latencyRangeEnd":15000,
             "watchedCustomServices": [
               "com.envision.demo.controller.InvestmentController.findAll"
             ]

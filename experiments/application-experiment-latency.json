@@ -38,19 +38,12 @@
           "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator",
           "assaults_configuration": {
             "level": 2,
-            "latencyActive": false,
-            "exceptionsActive": true,
-            "exception": {
-              "type": "java.net.ConnectException",
-              "arguments": [
-                {
-                  "className": "java.lang.String",
-                  "value": "Connection timed out"
-                }
-              ]
-            },
-            "memoryActive":false,
+            "latencyActive": true,
+            "latencyRangeStart":10000,
+            "latencyRangeEnd":15000,
+            "exceptionsActive": false,
             "killApplicationActive":false,
+            "memoryActive":false,
             "watchedCustomServices": [
               "com.envision.demo.controller.InvestmentController.findAll"
             ]
