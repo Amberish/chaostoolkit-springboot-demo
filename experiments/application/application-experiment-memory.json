@@ -37,19 +37,14 @@
         "arguments": {
           "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator",
           "assaults_configuration": {
-            "level": 2,
+            "level": 1,
             "latencyActive": false,
-            "exceptionsActive": true,
-            "exception": {
-              "type": "java.net.ConnectException",
-              "arguments": [
-                {
-                  "className": "java.lang.String",
-                  "value": "Connection timed out"
-                }
-              ]
-            },
-            "memoryActive":false,
+            "exceptionsActive": false,
+            "memoryActive":true,
+            "memoryMillisecondsHoldFilledMemory":90000,
+            "memoryMillisecondsWaitNextIncrease":1000,
+            "memoryFillIncrementFraction":99.10,
+            "memoryFillTargetFraction":99.10,
             "killApplicationActive":false,
             "watchedCustomServices": [
               "com.envision.demo.controller.InvestmentController.findAll"
@@ -83,5 +78,18 @@
       "type": "action"
     }
   ],
-  "rollbacks": []
+  "rollbacks": [
+    {
+      "name": "disable_chaosmonkey",
+      "provider": {
+        "arguments": {
+          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator"
+        },
+        "func": "disable_chaosmonkey",
+        "module": "chaosspring.actions",
+        "type": "python"
+      },
+      "type": "action"
+    }
+  ]
 }
