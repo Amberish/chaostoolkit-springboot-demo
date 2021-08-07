@@ -39,17 +39,12 @@
           "assaults_configuration": {
             "level": 2,
             "latencyActive": false,
-            "exceptionsActive": true,
-            "exception": {
-              "type": "java.net.ConnectException",
-              "arguments": [
-                {
-                  "className": "java.lang.String",
-                  "value": "Connection timed out"
-                }
-              ]
-            },
-            "memoryActive":false,
+            "exceptionsActive": false,
+            "memoryActive":true,
+            "memoryMillisecondsHoldFilledMemory":90000,
+            "memoryMillisecondsWaitNextIncrease":1000,
+            "memoryFillIncrementFraction":99.10,
+            "memoryFillTargetFraction":99.10,
             "killApplicationActive":false,
             "watchedCustomServices": [
               "com.envision.demo.controller.InvestmentController.findAll"
