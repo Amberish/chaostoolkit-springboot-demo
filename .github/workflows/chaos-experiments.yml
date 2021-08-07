@@ -28,7 +28,8 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
 
       - name: Get tag name
-        run: echo "::set-env name=tag::$(($env:GITHUB_REF -split '/')[-1] -replace ' ','')"
+        id: tag
+        run: echo "::set-output name=tag::$(($env:GITHUB_REF -split '/')[-1] -replace ' ','')"
 
       - name: Create log and journal buckets
         run: |
@@ -40,25 +41,25 @@ jobs:
           chaos run ./experiments/application/application-experiment-app-kill.json
           aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-app-kill-log.log
           aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-app-kill-journal.json
-        if: contains(${{ env.tag }}, 'kill')
+        if: contains(${{ steps.date.outputs.tag }}, 'kill')
 
       - name: Run application experiment - exception
         run: |
           chaos run ./experiments/application/application-experiment-exception.json
           aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-exception-log.log
           aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-exception-journal.json
-        if: contains(${{ env.tag }}, 'exc')
+        if: contains(${{ steps.date.outputs.tag }}, 'exc')
 
       - name: Run application experiment - latency
         run: |
           chaos run ./experiments/application/application-experiment-latency.json
           aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-latency-log.log
           aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-latency-journal.json
-        if: contains(${{ env.tag }}, 'lat')
+        if: contains(${{ steps.date.outputs.tag }}, 'lat')
 
       - name: Run application experiment - memory
         run: |
           chaos run ./experiments/application/application-experiment-memory.json
           aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-memory-log.log
           aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-memory-journal.json
-        if: contains(${{ env.tag }}, 'mem')
+        if: contains(${{ steps.date.outputs.tag }}, 'mem')
