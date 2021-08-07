@@ -37,8 +37,14 @@
         "arguments": {
           "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator",
           "assaults_configuration": {
-            "level": 1,
-            "latencyActive": false,
+    /*{
+      "level":5,
+      "latencyRangeStart":10000,
+      "latencyRangeEnd":15000,
+      "latencyActive":false,
+      "exceptionsActive":false}*/
+            "level": 2,
+            "latencyActive": true,
             "exceptionsActive": true,
             "exception": {
               "type": "java.net.ConnectException",
