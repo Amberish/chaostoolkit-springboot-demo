@@ -1,0 +1,41 @@
+name: Run Chaos Experiments
+on:
+  push:
+    tags:
+      - 'chaos-kill-[0-9]+'
+
+env:
+  AWS_DEFULT_REGION: ${{ secrets.CDK_DEFAULT_REGION }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  run-experiments:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Setup python virtual env
+        run: |
+          pip install -U chaostoolkit
+          pip install -U chaostoolkit-spring
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
+
+      - name: Create log and journal buckets
+        run: |
+          aws s3 mb s3://chaostoolkit-log-bucket
+          aws s3 mb s3://chaostoolkit-journal-bucket
+
+      - name: Run application experiment - app kill
+        run: chaos run ./experiments/application/application-experiment-app-kill.json
+
+      - name: Move log and journal to s3
+        run: |
+          aws s3 cp ./chaostoolkit.log s3://chaostoolkit-log-bucket/${{ steps.date.outputs.date }}-application-experiment-app-kill-log.log
+          aws s3 cp ./journal.json s3://chaostoolkit-journal-bucket/${{ steps.date.outputs.date }}-application-experiment-app-kill-journal.json
