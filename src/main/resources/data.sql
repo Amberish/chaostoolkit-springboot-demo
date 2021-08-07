@@ -1,4 +1,4 @@
-insert into student
-values(10001,'vaquarkhan', 'E1234567');
-insert into student
-values(10002,'Zidan khan', 'A1234568');
+insert into investment
+values(10001,'PGO', 'PGO001');
+insert into investment
+values(10002,'PFIGO', 'PFIGO1');
