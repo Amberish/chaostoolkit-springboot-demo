@@ -37,7 +37,7 @@
         "arguments": {
           "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator",
           "assaults_configuration": {
-            "level": 1,
+            "level": 2,
             "latencyActive": false,
             "exceptionsActive": true,
             "exception": {
@@ -49,6 +49,8 @@
                 }
               ]
             },
+            "memoryActive":false,
+            "killApplicationActive":false,
             "watchedCustomServices": [
               "com.envision.demo.controller.InvestmentController.findAll"
             ]
@@ -71,9 +73,9 @@
           "Content-Type": "application/json"
         },
         "arguments": {
-          "controller": false,
-          "restController": false,
-          "service": false,
+          "controller": true,
+          "restController": true,
+          "service": true,
           "repository": true,
           "component": false
         }

@@ -1,0 +1,82 @@
+{
+  "version": "1.0.0",
+  "title": "Injecting application failures",
+  "description": "Failures will be introduced at the application level",
+  "tags": [],
+  "steady-state-hypothesis": {
+    "title": "Investment data is available",
+    "probes": [
+      {
+        "type": "probe",
+        "name": "can-retrieve-investment-data",
+        "tolerance": 200,
+        "provider": {
+          "type": "http",
+          "timeout": 5,
+          "url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/investments"
+        }
+      }
+    ]
+  },
+  "method": [
+    {
+      "name": "enable_chaosmonkey",
+      "provider": {
+        "arguments": {
+          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator"
+        },
+        "func": "enable_chaosmonkey",
+        "module": "chaosspring.actions",
+        "type": "python"
+      },
+      "type": "action"
+    },
+    {
+      "name": "configure_assaults",
+      "provider": {
+        "arguments": {
+          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator",
+          "assaults_configuration": {
+            "level": 2,
+            "latencyActive": false,
+            "exceptionsActive": false,
+            "memoryActive":true,
+            "memoryMillisecondsHoldFilledMemory":90000,
+            "memoryMillisecondsWaitNextIncrease":1000,
+            "memoryFillIncrementFraction":99.10,
+            "memoryFillTargetFraction":99.10,
+            "killApplicationActive":false,
+            "watchedCustomServices": [
+              "com.envision.demo.controller.InvestmentController.findAll"
+            ]
+          }
+        },
+        "func": "change_assaults_configuration",
+        "module": "chaosspring.actions",
+        "type": "python"
+      },
+      "type": "action"
+    },
+    {
+      "name": "configure_repository_watcher",
+      "tolerance": 200,
+      "provider": {
+        "type": "http",
+        "url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator/chaosmonkey/watchers",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "arguments": {
+          "controller": true,
+          "restController": true,
+          "service": true,
+          "repository": true,
+          "component": false
+        }
+      },
+      "type": "action"
+    }
+  ],
+  "rollbacks": []
+}

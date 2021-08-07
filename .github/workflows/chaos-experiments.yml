@@ -23,7 +23,7 @@ jobs:
           pip install -U chaostoolkit-spring
 
       - name: Run application experiments
-        run: chaos run ./experiments/application-experiment.json
+        run: chaos run ./experiments/application-experiment-exception.json
 
       - name: Get current date
         id: date
