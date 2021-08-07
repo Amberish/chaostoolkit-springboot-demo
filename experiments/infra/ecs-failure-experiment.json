@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "title": "Injecting ecs failures",
+  "description": "Failures will be introduced at the aws ecs level",
+  "tags": [],
+  "configuration": {
+    "aws_profile_name": "admin-access"
+  },
+  "steady-state-hypothesis": {
+    "title": "Desired ECS tasks running",
+    "probes": [
+      {
+        "name": "are-all-desired-tasks-running",
+        "type": "probe",
+        "tolerance": true,
+        "provider": {
+          "type": "python",
+          "module": "chaosaws.ecs.probes",
+          "func": "are_all_desired_tasks_running",
+          "arguments": {
+            "cluster": "ChaosSpringbootStack-ChaostoolkitSpringbootCluster47A3949F-LFJQbQpbh90k",
+            "service": "ChaosSpringbootStack-ChaostoolkitSpringbootService9B466C0F-USb9xUmLQTLf"
+          }
+        }
+      }
+    ]
+  },
+  "method": [
+    {
+      "name": "stop-random-tasks",
+      "type": "action",
+      "provider": {
+        "type": "python",
+        "module": "chaosaws.ecs.actions",
+        "func": "stop_random_tasks",
+        "arguments": {
+          "cluster": "ChaosSpringbootStack-ChaostoolkitSpringbootCluster47A3949F-LFJQbQpbh90k"
+        }
+      }
+    }
+  ],
+  "rollbacks": []
+}
