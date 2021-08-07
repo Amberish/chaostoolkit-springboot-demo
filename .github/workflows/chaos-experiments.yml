@@ -2,7 +2,7 @@ name: Run Chaos Experiments
 on:
   push:
     tags:
-      - 'chaos-\[a-z]+-\d+'
+      - 'chaos-[a-z]+-[0-9]+'
 
 env:
   AWS_DEFULT_REGION: ${{ secrets.CDK_DEFAULT_REGION }}
