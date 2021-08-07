@@ -81,18 +81,5 @@
       "type": "action"
     }
   ],
-  "rollbacks": [
-    {
-      "name": "disable_chaosmonkey",
-      "provider": {
-        "arguments": {
-          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator"
-        },
-        "func": "disable_chaosmonkey",
-        "module": "chaosspring.actions",
-        "type": "python"
-      },
-      "type": "action"
-    }
-  ]
+  "rollbacks": []
 }
