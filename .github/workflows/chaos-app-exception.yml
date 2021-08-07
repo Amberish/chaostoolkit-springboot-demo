@@ -34,6 +34,7 @@ jobs:
 
       - name: Run application experiment - exception
         run: chaos run ./experiments/application/application-experiment-exception.json
+        continue-on-error: true
 
       - name: Move log and journal to s3
         run: |
