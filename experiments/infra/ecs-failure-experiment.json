@@ -4,7 +4,7 @@
   "description": "Failures will be introduced at the aws ecs level",
   "tags": [],
   "configuration": {
-    "aws_profile_name": "admin-access"
+    "aws_region": "us-east-1"
   },
   "steady-state-hypothesis": {
     "title": "Desired ECS tasks running",
