@@ -47,6 +47,7 @@ export class ChaosSpringbootStack extends cdk.Stack {
         "ChaostoolkitSpringbootService",
         {
           cluster,
+          desiredCount: 2,
           memoryLimitMiB: 1024,
           cpu: 512,
           taskImageOptions: {
