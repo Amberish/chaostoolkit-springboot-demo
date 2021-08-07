@@ -21,7 +21,7 @@ jobs:
       - name: Setup python virtual env
         run: |
           pip install -U chaostoolkit
-          pip install -U chaostoolkit-spring
+          pip install -U chaostoolkit-aws
 
       - name: Get current date
         id: date
