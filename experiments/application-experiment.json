@@ -13,7 +13,7 @@
         "provider": {
           "type": "http",
           "timeout": 5,
-          "url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/students"
+          "url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/investments"
         }
       }
     ]
@@ -48,7 +48,10 @@
                   "value": "Connection timed out"
                 }
               ]
-            }
+            },
+            "watchedCustomServices": [
+              "com.envision.demo.controller.InvestmentController.findAll"
+            ]
           }
         },
         "func": "change_assaults_configuration",
