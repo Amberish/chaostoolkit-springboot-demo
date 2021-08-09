@@ -13,7 +13,7 @@
         "provider": {
           "type": "http",
           "timeout": 5,
-          "url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/investments"
+          "url": "http://chaos-chaos-1lf9psdrxmj6u-1468718321.us-east-1.elb.amazonaws.com/investments"
         }
       }
     ]
@@ -23,7 +23,7 @@
       "name": "enable_chaosmonkey",
       "provider": {
         "arguments": {
-          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator"
+          "base_url": "http://chaos-chaos-1lf9psdrxmj6u-1468718321.us-east-1.elb.amazonaws.com/actuator"
         },
         "func": "enable_chaosmonkey",
         "module": "chaosspring.actions",
@@ -35,7 +35,7 @@
       "name": "configure_assaults",
       "provider": {
         "arguments": {
-          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator",
+          "base_url": "http://chaos-chaos-1lf9psdrxmj6u-1468718321.us-east-1.elb.amazonaws.com/actuator",
           "assaults_configuration": {
             "level": 2,
             "latencyActive": false,
@@ -61,7 +61,7 @@
       "tolerance": 200,
       "provider": {
         "type": "http",
-        "url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator/chaosmonkey/watchers",
+        "url": "http://chaos-chaos-1lf9psdrxmj6u-1468718321.us-east-1.elb.amazonaws.com/actuator/chaosmonkey/watchers",
         "method": "POST",
         "headers": {
           "Content-Type": "application/json"
@@ -82,7 +82,7 @@
       "name": "disable_chaosmonkey",
       "provider": {
         "arguments": {
-          "base_url": "http://chaos-chaos-t0323909ybwn-34224577.us-east-1.elb.amazonaws.com/actuator"
+          "base_url": "http://chaos-chaos-1lf9psdrxmj6u-1468718321.us-east-1.elb.amazonaws.com/actuator"
         },
         "func": "disable_chaosmonkey",
         "module": "chaosspring.actions",
